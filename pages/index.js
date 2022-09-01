@@ -9,7 +9,11 @@ export default function Home() {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const dateString = year + "-" + month + "-" + day;
-  const [data, setData] = useState({ Clues: {}, Caption: {} });
+  const [data, setData] = useState({
+    Clues: { c1: "", c2: "", c3: "", c4: "" },
+    Caption: {},
+  });
+  const [inputs, setInputs] = useState({ in1: [], in2: [], in3: [], in4: [] });
 
   async function getData() {
     try {
@@ -26,13 +30,17 @@ export default function Home() {
   }
 
   function makeClues() {
-    const clues = Object.keys(data.Clues);
-    for (const [key, value] of Object.entries(clues)) {
-      for (const letter of value) {
-        console.log(letter);
+    const clues = Object.entries(data.Clues);
+
+    for (const [key, value] of clues) {
+      if (key.includes("c")) {
       }
     }
   }
+
+  // function inputChars() {
+
+  // }
 
   useEffect(() => {
     getData();
@@ -55,13 +63,61 @@ export default function Home() {
           {month}/{day}/{year} Puzzle
         </p>
 
-        <div>
-          <h2>{data.Clues.c1}</h2>
-          <h2>{data.Clues.c2}</h2>
-          <h2>{data.Clues.c3}</h2>
-          <h2>{data.Clues.c4}</h2>
+        <div className="flex flex-col text-2xl ">
+          <div className="">
+            {data.Clues.c1.split("").map((char, i) => (
+              <button
+                className="hover:text-green-300/100"
+                onClick={() => {
+                  console.log(char);
+                }}
+                key={"c1" + char + i}
+              >
+                {char}
+              </button>
+            ))}
+          </div>
+          <div>
+            {data.Clues.c2.split("").map((char, i) => (
+              <button
+                className="hover:text-green-300/100"
+                onClick={() => {
+                  console.log(char);
+                }}
+                key={"c2" + char + i}
+              >
+                {char}
+              </button>
+            ))}
+          </div>
+          <div>
+            {data.Clues.c3.split("").map((char, i) => (
+              <button
+                className="hover:text-green-300/100"
+                onClick={() => {
+                  console.log(char);
+                }}
+                key={"c3" + char + i}
+              >
+                {char}
+              </button>
+            ))}
+          </div>
+          <div>
+            {data.Clues.c4.split("").map((char, i) => (
+              <button
+                className="hover:text-green-300/100"
+                onClick={() => {
+                  console.log(char);
+                }}
+                key={"c4" + char + i}
+              >
+                {char}
+              </button>
+            ))}
+          </div>
 
-          <h2>{data.Caption.v1}</h2>
+          <div>{data.Caption.v1}</div>
         </div>
       </main>
 
