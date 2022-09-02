@@ -49,6 +49,12 @@ export default function Home() {
     console.log(char);
   }
 
+  function removeChars(inputNum) {
+    const key = "in" + inputNum;
+    const popped = inputs[key].pop();
+    setInputs({ ...inputs, [key]: [...inputs[key]] });
+  }
+
   useEffect(() => {
     getData();
   }, []);
@@ -85,7 +91,17 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <div>{inputs.in1}</div>
+          <div>
+            {inputs.in1}
+            <button
+              className="hover:text-red-300/100 m-2"
+              onClick={() => {
+                removeChars(1);
+              }}
+            >
+              x
+            </button>
+          </div>
           <div>
             {data.Clues.c2.split("").map((char, i) => (
               <button
@@ -99,7 +115,17 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <div>{inputs.in2}</div>
+          <div>
+            {inputs.in2}
+            <button
+              className="hover:text-red-300/100 m-2"
+              onClick={() => {
+                removeChars(2);
+              }}
+            >
+              x
+            </button>
+          </div>
           <div>
             {data.Clues.c3.split("").map((char, i) => (
               <button
@@ -113,7 +139,18 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <div>{inputs.in3}</div>
+          <div>
+            {inputs.in3}
+
+            <button
+              className="hover:text-red-300/100 m-2"
+              onClick={() => {
+                removeChars(3);
+              }}
+            >
+              x
+            </button>
+          </div>
           <div>
             {data.Clues.c4.split("").map((char, i) => (
               <button
@@ -127,7 +164,17 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <div>{inputs.in4}</div>
+          <div>
+            {inputs.in4}
+            <button
+              className="hover:text-red-300/100 m-2"
+              onClick={() => {
+                removeChars(4);
+              }}
+            >
+              x
+            </button>
+          </div>
 
           <div>{data.Caption.v1}</div>
         </div>
