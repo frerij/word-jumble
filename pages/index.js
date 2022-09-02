@@ -13,7 +13,12 @@ export default function Home() {
     Clues: { c1: "", c2: "", c3: "", c4: "" },
     Caption: {},
   });
-  const [inputs, setInputs] = useState({ in1: [], in2: [], in3: [], in4: [] });
+  const [inputs, setInputs] = useState({
+    in1: [],
+    in2: [],
+    in3: [],
+    in4: [],
+  });
 
   async function getData() {
     try {
@@ -38,15 +43,18 @@ export default function Home() {
     }
   }
 
-  // function inputChars() {
-
-  // }
+  function inputChars(char, inputNum) {
+    const key = "in" + inputNum;
+    setInputs({ ...inputs, [key]: [...inputs[key], char] });
+    console.log(char);
+  }
 
   useEffect(() => {
     getData();
   }, []);
 
   makeClues();
+  console.log(inputs);
 
   return (
     <div>
@@ -67,9 +75,9 @@ export default function Home() {
           <div className="">
             {data.Clues.c1.split("").map((char, i) => (
               <button
-                className="hover:text-green-300/100"
+                className="hover:text-green-300/100 m-2"
                 onClick={() => {
-                  console.log(char);
+                  inputChars(char, 1);
                 }}
                 key={"c1" + char + i}
               >
@@ -77,12 +85,13 @@ export default function Home() {
               </button>
             ))}
           </div>
+          <div>{inputs.in1}</div>
           <div>
             {data.Clues.c2.split("").map((char, i) => (
               <button
-                className="hover:text-green-300/100"
+                className="hover:text-green-300/100 m-2"
                 onClick={() => {
-                  console.log(char);
+                  inputChars(char, 2);
                 }}
                 key={"c2" + char + i}
               >
@@ -90,12 +99,13 @@ export default function Home() {
               </button>
             ))}
           </div>
+          <div>{inputs.in2}</div>
           <div>
             {data.Clues.c3.split("").map((char, i) => (
               <button
-                className="hover:text-green-300/100"
+                className="hover:text-green-300/100 m-2"
                 onClick={() => {
-                  console.log(char);
+                  inputChars(char, 3);
                 }}
                 key={"c3" + char + i}
               >
@@ -103,12 +113,13 @@ export default function Home() {
               </button>
             ))}
           </div>
+          <div>{inputs.in3}</div>
           <div>
             {data.Clues.c4.split("").map((char, i) => (
               <button
-                className="hover:text-green-300/100"
+                className="hover:text-green-300/100 m-2"
                 onClick={() => {
-                  console.log(char);
+                  inputChars(char, 4);
                 }}
                 key={"c4" + char + i}
               >
@@ -116,6 +127,7 @@ export default function Home() {
               </button>
             ))}
           </div>
+          <div>{inputs.in4}</div>
 
           <div>{data.Caption.v1}</div>
         </div>
