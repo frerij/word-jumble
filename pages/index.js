@@ -34,6 +34,12 @@ export default function Home() {
     in4: [],
   });
   const [bankLetters, setBankLetters] = useState([]);
+  const [checked, setChecked] = useState({
+    word1: false,
+    word2: false,
+    word3: false,
+    word4: false,
+  });
 
   async function getData() {
     try {
@@ -44,6 +50,7 @@ export default function Home() {
       const response = await fetch(url);
       const fetchedData = await response.json();
       setData(fetchedData);
+      setChecked({ word1: false, word2: false, word3: false, word4: false });
     } catch (e) {
       console.error("error", e);
     }
@@ -77,7 +84,10 @@ export default function Home() {
       .join("");
 
     // need to only run this once
-    if (inString === data.Clues[solKey]) {
+    if (
+      inString === data.Clues[solKey] &&
+      checked["word" + inputNum] === false
+    ) {
       const bankIndices = data.Clues[bankKey].split(",").map((x) => x - 1);
       console.log("correct", bankIndices);
 
@@ -87,6 +97,7 @@ export default function Home() {
           inString[bankIndices[num]],
         ]);
       }
+      setChecked({ ...checked, ["word" + inputNum]: true });
     }
   }
 
@@ -97,10 +108,11 @@ export default function Home() {
   makeClues();
 
   useEffect(() => {
-    checkInput(4);
+    checkInput(2);
   }, [inputs]);
 
   console.log(bankLetters);
+  console.log(checked);
 
   return (
     <div>
