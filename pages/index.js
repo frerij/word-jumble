@@ -116,7 +116,6 @@ export default function Home() {
   }, [inputs]);
 
   console.log(bankLetters);
-  console.log(checked);
 
   return (
     <div>
@@ -243,11 +242,13 @@ export default function Home() {
           <div>{data.Caption.v1}</div>
           <div>{data.Solution.s1}</div>
           <div className="border border-rose-200">
-            {bankLetters.map((letter) => (
-              <button className="hover:text-green-300/100 m-2 ">
-                {letter}
-              </button>
-            ))}
+            {bankLetters
+              .filter((x) => x !== undefined)
+              .map((letter) => (
+                <button className="hover:text-green-300/100 m-2 ">
+                  {letter}
+                </button>
+              ))}
           </div>
         </div>
       </main>
