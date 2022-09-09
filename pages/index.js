@@ -83,13 +83,14 @@ export default function Home() {
       .map((index) => data.Clues["c" + inputNum][index])
       .join("");
 
-    // need to only run this once
     if (
       inString === data.Clues[solKey] &&
       checked["word" + inputNum] === false
     ) {
-      const bankIndices = data.Clues[bankKey].split(",").map((x) => x - 1);
-      console.log("correct", bankIndices);
+      const bankIndices = data.Clues[bankKey]
+        .split(",")
+        .map((x) => x - 1)
+        .filter((item) => item !== undefined);
 
       for (let num in bankIndices) {
         setBankLetters((bankLetters) => [
@@ -108,7 +109,10 @@ export default function Home() {
   makeClues();
 
   useEffect(() => {
+    checkInput(1);
     checkInput(2);
+    checkInput(3);
+    checkInput(4);
   }, [inputs]);
 
   console.log(bankLetters);
@@ -238,9 +242,11 @@ export default function Home() {
 
           <div>{data.Caption.v1}</div>
           <div>{data.Solution.s1}</div>
-          <div className=" w-96 m-4 h-8">
+          <div className="border border-rose-200">
             {bankLetters.map((letter) => (
-              <button className="hover:text-green-300/100 m-2">{letter}</button>
+              <button className="hover:text-green-300/100 m-2 ">
+                {letter}
+              </button>
             ))}
           </div>
         </div>
