@@ -25,7 +25,7 @@ export default function Home() {
       o4: "",
     },
     Caption: {},
-    Solution: {},
+    Solution: { s1: "" },
   });
   const [inputs, setInputs] = useState({
     in1: [],
@@ -40,6 +40,8 @@ export default function Home() {
     word3: false,
     word4: false,
   });
+  const [captionSpaces, setCaptionSpaces] = useState([]);
+  const [captionInput, setCaptionInput] = useState([]);
 
   async function getData() {
     try {
@@ -102,8 +104,24 @@ export default function Home() {
     }
   }
 
+  function capSpaces() {
+    const spaceArr = [];
+    for (const char of data.Solution.s1) {
+      console.log(char);
+      if (char === "{") {
+        spaceArr.push(" ");
+      } else if (char === " " || char === "}") {
+        continue;
+      } else {
+        spaceArr.push("_");
+      }
+    }
+    setCaptionSpaces([...spaceArr]);
+  }
+
   useEffect(() => {
     getData();
+    capSpaces();
   }, []);
 
   makeClues();
@@ -115,7 +133,7 @@ export default function Home() {
     checkInput(4);
   }, [inputs]);
 
-  console.log(bankLetters);
+  console.log(captionSpaces);
 
   return (
     <div>
@@ -240,8 +258,8 @@ export default function Home() {
           </div>
 
           <div>{data.Caption.v1}</div>
-          <div>{data.Solution.s1}</div>
-          <div className="border border-rose-200">
+          <div className="m-2">{captionSpaces}</div>
+          <div className="mt-4">
             {bankLetters
               .filter((x) => x !== undefined)
               .map((letter) => (
