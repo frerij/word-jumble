@@ -25,13 +25,14 @@ export default function Home() {
       o4: "",
     },
     Caption: {},
-    Solution: { s1: "" },
+    Solution: { s1: "", k1: "" },
   });
   const [inputs, setInputs] = useState({
     in1: [],
     in2: [],
     in3: [],
     in4: [],
+    in5: [],
   });
   const [bankLetters, setBankLetters] = useState([]);
   const [checked, setChecked] = useState({
@@ -41,7 +42,6 @@ export default function Home() {
     word4: false,
   });
   const [captionSpaces, setCaptionSpaces] = useState([]);
-  const [captionInput, setCaptionInput] = useState([]);
 
   async function getData() {
     try {
@@ -53,6 +53,7 @@ export default function Home() {
       const fetchedData = await response.json();
       setData(fetchedData);
       setChecked({ word1: false, word2: false, word3: false, word4: false });
+      setBankLetters([]);
     } catch (e) {
       console.error("error", e);
     }
@@ -107,7 +108,6 @@ export default function Home() {
   function capSpaces() {
     const spaceArr = [];
     for (const char of data.Solution.s1) {
-      console.log(char);
       if (char === "{") {
         spaceArr.push(" ");
       } else if (char === " " || char === "}") {
@@ -121,8 +121,11 @@ export default function Home() {
 
   useEffect(() => {
     getData();
-    capSpaces();
   }, []);
+
+  useEffect(() => {
+    capSpaces();
+  }, [data]);
 
   makeClues();
 
@@ -131,9 +134,9 @@ export default function Home() {
     checkInput(2);
     checkInput(3);
     checkInput(4);
-  }, [inputs]);
+  }, [inputs.in1, inputs.in2, inputs.in3, inputs.in4]);
 
-  console.log(captionSpaces);
+  console.log(bankLetters);
 
   return (
     <div>
@@ -257,16 +260,38 @@ export default function Home() {
             </button>
           </div>
 
-          <div>{data.Caption.v1}</div>
-          <div className="m-2">{captionSpaces}</div>
+          <div className="mt-6">{data.Caption.v1}</div>
+          <div className="m-2">
+            {captionSpaces.map((char, i) => (
+              <button key={i} className="m-2">
+                {char}
+              </button>
+            ))}
+
+            {inputs.in5.map((index) => bankLetters[index])}
+            <button
+              className="hover:text-red-300/100 m-2"
+              onClick={() => {
+                removeChars(5);
+              }}
+              disabled={inputs.in5.length === 0 ? true : false}
+            >
+              x
+            </button>
+          </div>
           <div className="mt-4">
-            {bankLetters
-              .filter((x) => x !== undefined)
-              .map((letter) => (
-                <button className="hover:text-green-300/100 m-2 ">
-                  {letter}
-                </button>
-              ))}
+            {bankLetters.map((char, i) => (
+              <button
+                key={char + i}
+                className="hover:text-green-300/100 m-2"
+                disabled={inputs.in5.includes(i)}
+                onClick={() => {
+                  inputChars(i, 5);
+                }}
+              >
+                {char}
+              </button>
+            ))}
           </div>
         </div>
       </main>
