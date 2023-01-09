@@ -136,8 +136,6 @@ export default function Home() {
     checkInput(4);
   }, [inputs.in1, inputs.in2, inputs.in3, inputs.in4]);
 
-  console.log(bankLetters);
-
   return (
     <div>
       <Head>
