@@ -173,11 +173,17 @@ export default function Home() {
           <div className="input-container">
             {inputs.in1.map((index) => data.Clues.c1[index])}
             <button
-              className="hover:text-red-300/100 m-2"
+              className={`m-2 ${
+                inputs.in1.length === 0 ? "" : "hover:text-red-300/100"
+              }`}
               onClick={() => {
                 removeChars(1);
               }}
-              disabled={inputs.in1.length === 0 ? true : false}
+              disabled={
+                inputs.in1.length === 0
+                  ? true
+                  : false || checked["word" + 1] === true
+              }
             >
               x
             </button>
@@ -203,11 +209,17 @@ export default function Home() {
           <div className="input-container">
             {inputs.in2.map((index) => data.Clues.c2[index])}
             <button
-              className="hover:text-red-300/100 m-2"
+              className={`m-2 ${
+                inputs.in1.length === 0 ? "" : "hover:text-red-300/100"
+              }`}
               onClick={() => {
                 removeChars(2);
               }}
-              disabled={inputs.in2.length === 0 ? true : false}
+              disabled={
+                inputs.in1.length === 0
+                  ? true
+                  : false || checked["word" + 2] === true
+              }
             >
               x
             </button>
@@ -234,11 +246,17 @@ export default function Home() {
             {inputs.in3.map((index) => data.Clues.c3[index])}
 
             <button
-              className="hover:text-red-300/100 m-2"
+              className={`m-2 ${
+                inputs.in1.length === 0 ? "" : "hover:text-red-300/100"
+              }`}
               onClick={() => {
                 removeChars(3);
               }}
-              disabled={inputs.in3.length === 0 ? true : false}
+              disabled={
+                inputs.in1.length === 0
+                  ? true
+                  : false || checked["word" + 3] === true
+              }
             >
               x
             </button>
@@ -264,11 +282,17 @@ export default function Home() {
           <div className="input-container">
             {inputs.in4.map((index) => data.Clues.c4[index])}
             <button
-              className="hover:text-red-300/100 m-2"
+              className={`m-2 ${
+                inputs.in1.length === 0 ? "" : "hover:text-red-300/100"
+              }`}
               onClick={() => {
                 removeChars(4);
               }}
-              disabled={inputs.in4.length === 0 ? true : false}
+              disabled={
+                inputs.in1.length === 0
+                  ? true
+                  : false || checked["word" + 4] === true
+              }
             >
               x
             </button>
@@ -284,11 +308,17 @@ export default function Home() {
 
             {inputs.in5.map((index) => bankLetters[index])}
             <button
-              className="hover:text-red-300/100 m-2"
+              className={`m-2 ${
+                inputs.in5.length === 0 ? "" : "hover:text-red-300/100"
+              }`}
               onClick={() => {
                 removeChars(5);
               }}
-              disabled={inputs.in5.length === 0 ? true : false}
+              disabled={
+                inputs.in5.length === 0
+                  ? true
+                  : false || checked["word" + 5] === true
+              }
             >
               x
             </button>
