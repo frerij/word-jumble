@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
+import Clue from "../components/Clue";
 
 export default function Home() {
   const date = new Date();
@@ -70,13 +71,26 @@ export default function Home() {
 
   function inputChars(index, inputNum) {
     const key = "in" + inputNum;
-    setInputs({ ...inputs, [key]: [...inputs[key], index] });
+    const newInputs = { ...inputs };
+    let i = inputs[key].indexOf("_");
+    newInputs[key][i] = index;
+
+    setInputs(newInputs);
   }
 
   function removeChars(inputNum) {
     const key = "in" + inputNum;
-    const popped = inputs[key].pop();
-    setInputs({ ...inputs, [key]: [...inputs[key]] });
+    const newInputs = { ...inputs };
+    let i = inputs[key].indexOf("_");
+    if (i === -1) {
+      i = inputs[key].length - 1;
+    } else {
+      i = i - 1;
+    }
+
+    newInputs[key][i] = "_";
+
+    setInputs(newInputs);
   }
 
   function checkInput(inputNum) {
@@ -106,17 +120,32 @@ export default function Home() {
   }
 
   function capSpaces() {
-    const spaceArr = [];
-    for (const char of data.Solution.s1) {
-      if (char === "{") {
-        spaceArr.push(" ");
-      } else if (char === " " || char === "}") {
-        continue;
-      } else {
-        spaceArr.push("_");
+    const answers = [
+      data.Clues.a1,
+      data.Clues.a2,
+      data.Clues.a3,
+      data.Clues.a4,
+      data.Solution.s1,
+    ];
+
+    const newInputs = { in1: [], in2: [], in3: [], in4: [], in5: [] };
+    let count = 1;
+
+    for (let ans of answers) {
+      const spaceArr = [];
+      for (let char of ans) {
+        if (char === "{") {
+          spaceArr.push(" ");
+        } else if (char === " " || char === "}") {
+          continue;
+        } else {
+          spaceArr.push("_");
+        }
       }
+      newInputs["in" + count] = spaceArr;
+      count += 1;
     }
-    setCaptionSpaces([...spaceArr]);
+    setInputs(newInputs);
   }
 
   useEffect(() => {
@@ -152,155 +181,38 @@ export default function Home() {
         </p>
 
         <div className="flex flex-col text-2xl items-center">
-          <div className="clue-container">
-            {data.Clues.c1.split("").map((char, i) => (
-              <button
-                className={`m-2 ${
-                  inputs.in1.includes(i) === true
-                    ? "line-through"
-                    : "hover:text-green-300/100"
-                }`}
-                disabled={inputs.in1.includes(i)}
-                onClick={() => {
-                  inputChars(i, 1);
-                }}
-                key={"c1" + char + i}
-              >
-                {char}
-              </button>
-            ))}
-          </div>
-          <div className="input-container">
-            {inputs.in1.map((index) => data.Clues.c1[index])}
-            <button
-              className={`m-2 ${
-                inputs.in1.length === 0 ? "" : "hover:text-red-300/100"
-              }`}
-              onClick={() => {
-                removeChars(1);
-              }}
-              disabled={
-                inputs.in1.length === 0
-                  ? true
-                  : false || checked["word" + 1] === true
-              }
-            >
-              x
-            </button>
-          </div>
-          <div className="clue-container">
-            {data.Clues.c2.split("").map((char, i) => (
-              <button
-                className={`m-2 ${
-                  inputs.in2.includes(i) === true
-                    ? "line-through"
-                    : "hover:text-green-300/100"
-                }`}
-                disabled={inputs.in2.includes(i)}
-                onClick={() => {
-                  inputChars(i, 2);
-                }}
-                key={"c2" + char + i}
-              >
-                {char}
-              </button>
-            ))}
-          </div>
-          <div className="input-container">
-            {inputs.in2.map((index) => data.Clues.c2[index])}
-            <button
-              className={`m-2 ${
-                inputs.in1.length === 0 ? "" : "hover:text-red-300/100"
-              }`}
-              onClick={() => {
-                removeChars(2);
-              }}
-              disabled={
-                inputs.in1.length === 0
-                  ? true
-                  : false || checked["word" + 2] === true
-              }
-            >
-              x
-            </button>
-          </div>
-          <div className="clue-container">
-            {data.Clues.c3.split("").map((char, i) => (
-              <button
-                className={`m-2 ${
-                  inputs.in3.includes(i) === true
-                    ? "line-through"
-                    : "hover:text-green-300/100"
-                }`}
-                disabled={inputs.in3.includes(i)}
-                onClick={() => {
-                  inputChars(i, 3);
-                }}
-                key={"c3" + char + i}
-              >
-                {char}
-              </button>
-            ))}
-          </div>
-          <div className="input-container">
-            {inputs.in3.map((index) => data.Clues.c3[index])}
-
-            <button
-              className={`m-2 ${
-                inputs.in1.length === 0 ? "" : "hover:text-red-300/100"
-              }`}
-              onClick={() => {
-                removeChars(3);
-              }}
-              disabled={
-                inputs.in1.length === 0
-                  ? true
-                  : false || checked["word" + 3] === true
-              }
-            >
-              x
-            </button>
-          </div>
-          <div className="clue-container">
-            {data.Clues.c4.split("").map((char, i) => (
-              <button
-                className={`m-2 ${
-                  inputs.in4.includes(i) === true
-                    ? "line-through"
-                    : "hover:text-green-300/100"
-                }`}
-                disabled={inputs.in4.includes(i)}
-                onClick={() => {
-                  inputChars(i, 4);
-                }}
-                key={"c4" + char + i}
-              >
-                {char}
-              </button>
-            ))}
-          </div>
-          <div className="input-container">
-            {inputs.in4.map((index) => data.Clues.c4[index])}
-            <button
-              className={`m-2 ${
-                inputs.in1.length === 0 ? "" : "hover:text-red-300/100"
-              }`}
-              onClick={() => {
-                removeChars(4);
-              }}
-              disabled={
-                inputs.in1.length === 0
-                  ? true
-                  : false || checked["word" + 4] === true
-              }
-            >
-              x
-            </button>
-          </div>
+          <Clue
+            clue={data.Clues.c1}
+            input={inputs.in1}
+            inputChars={(i) => inputChars(i, 1)}
+            removeChars={() => removeChars(1)}
+            solved={checked["word" + 1]}
+          />
+          <Clue
+            clue={data.Clues.c2}
+            input={inputs.in2}
+            inputChars={(i) => inputChars(i, 2)}
+            removeChars={() => removeChars(2)}
+            solved={checked["word" + 2]}
+          />
+          <Clue
+            clue={data.Clues.c3}
+            input={inputs.in3}
+            inputChars={(i) => inputChars(i, 3)}
+            removeChars={() => removeChars(3)}
+            solved={checked["word" + 3]}
+          />
+          <Clue
+            clue={data.Clues.c4}
+            input={inputs.in4}
+            inputChars={(i) => inputChars(i, 4)}
+            removeChars={() => removeChars(4)}
+            solved={checked["word" + 4]}
+          />
 
           <div className="mt-6">{data.Caption.v1}</div>
           <div className="m-2">
-            {captionSpaces.map((char, i) => (
+            {inputs.in5.map((char, i) => (
               <button key={i} className="m-2">
                 {char}
               </button>
