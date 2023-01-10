@@ -155,7 +155,11 @@ export default function Home() {
           <div className="clue-container">
             {data.Clues.c1.split("").map((char, i) => (
               <button
-                className="hover:text-green-300/100 m-2"
+                className={`m-2 ${
+                  inputs.in1.includes(i) === true
+                    ? "line-through"
+                    : "hover:text-green-300/100"
+                }`}
                 disabled={inputs.in1.includes(i)}
                 onClick={() => {
                   inputChars(i, 1);
@@ -181,7 +185,11 @@ export default function Home() {
           <div className="clue-container">
             {data.Clues.c2.split("").map((char, i) => (
               <button
-                className="hover:text-green-300/100 m-2"
+                className={`m-2 ${
+                  inputs.in2.includes(i) === true
+                    ? "line-through"
+                    : "hover:text-green-300/100"
+                }`}
                 disabled={inputs.in2.includes(i)}
                 onClick={() => {
                   inputChars(i, 2);
@@ -207,7 +215,11 @@ export default function Home() {
           <div className="clue-container">
             {data.Clues.c3.split("").map((char, i) => (
               <button
-                className="hover:text-green-300/100 m-2"
+                className={`m-2 ${
+                  inputs.in3.includes(i) === true
+                    ? "line-through"
+                    : "hover:text-green-300/100"
+                }`}
                 disabled={inputs.in3.includes(i)}
                 onClick={() => {
                   inputChars(i, 3);
@@ -234,7 +246,11 @@ export default function Home() {
           <div className="clue-container">
             {data.Clues.c4.split("").map((char, i) => (
               <button
-                className="hover:text-green-300/100 m-2"
+                className={`m-2 ${
+                  inputs.in4.includes(i) === true
+                    ? "line-through"
+                    : "hover:text-green-300/100"
+                }`}
                 disabled={inputs.in4.includes(i)}
                 onClick={() => {
                   inputChars(i, 4);
@@ -281,7 +297,11 @@ export default function Home() {
             {bankLetters.map((char, i) => (
               <button
                 key={char + i}
-                className="hover:text-green-300/100 m-2"
+                className={`m-2 ${
+                  inputs.in5.includes(i) === true
+                    ? "line-through"
+                    : "hover:text-green-300/100"
+                }`}
                 disabled={inputs.in5.includes(i)}
                 onClick={() => {
                   inputChars(i, 5);
