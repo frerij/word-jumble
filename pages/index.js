@@ -165,6 +165,10 @@ export default function Home() {
     checkInput(4);
   }, [inputs.in1, inputs.in2, inputs.in3, inputs.in4]);
 
+  console.log(inputs);
+  console.log(checked);
+  console.log(bankLetters);
+
   return (
     <div>
       <Head>
@@ -188,6 +192,7 @@ export default function Home() {
             removeChars={() => removeChars(1)}
             solved={checked["word" + 1]}
           />
+          <br />
           <Clue
             clue={data.Clues.c2}
             input={inputs.in2}
@@ -195,6 +200,7 @@ export default function Home() {
             removeChars={() => removeChars(2)}
             solved={checked["word" + 2]}
           />
+          <br />
           <Clue
             clue={data.Clues.c3}
             input={inputs.in3}
@@ -202,6 +208,7 @@ export default function Home() {
             removeChars={() => removeChars(3)}
             solved={checked["word" + 3]}
           />
+          <br />
           <Clue
             clue={data.Clues.c4}
             input={inputs.in4}
