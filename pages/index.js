@@ -257,12 +257,12 @@ export default function Home() {
             ))}
           </div>
           <br />
-          <div>
+          <div className="w-72 h-96 relative">
             <Image
               src={data.Image}
               alt="daily jumble caption comic"
-              width={500}
-              height={500}
+              layout="fill"
+              objectFit="contain"
             />
           </div>
         </div>
