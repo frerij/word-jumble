@@ -242,10 +242,10 @@ export default function Home() {
             {bankLetters.map((char, i) => (
               <button
                 key={char + i}
-                className={`m-2 ${
+                className={`m-2.5 w-6 rounded-md outline outline-offset-4 outline-white/50 ${
                   inputs.in5.includes(i) === true
-                    ? "line-through"
-                    : "hover:text-green-300/100"
+                    ? "text-white/50 line-through"
+                    : "hover:outline-green-300/50 hover:text-green-300/100"
                 }`}
                 disabled={inputs.in5.includes(i)}
                 onClick={() => {
