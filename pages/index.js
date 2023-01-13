@@ -100,8 +100,6 @@ export default function Home() {
       .map((index) => data.Clues["c" + inputNum][index])
       .join("");
 
-    console.log("input check for: " + solKey, bankKey, inString);
-
     if (
       inString === data.Clues[solKey] &&
       checked["word" + inputNum] === false
@@ -111,7 +109,7 @@ export default function Home() {
         .map((x) => x - 1)
         .filter((item) => item !== undefined);
 
-      for (let num of bankIndices) {
+      for (let num in bankIndices) {
         setBankLetters((bankLetters) => [
           ...bankLetters,
           inString[bankIndices[num]],
@@ -167,10 +165,6 @@ export default function Home() {
     checkInput(4);
   }, [inputs]);
 
-  console.log(inputs);
-  console.log(checked);
-  console.log(bankLetters);
-
   return (
     <div>
       <Head>
@@ -221,13 +215,12 @@ export default function Home() {
 
           <div className="mt-6">{data.Caption.v1}</div>
           <div className="m-2">
-            {inputs.in5.map((char, i) => (
-              <button key={i} className="m-2">
-                {char}
+            {inputs.in5.map((index, i) => (
+              <button key={i} className="m-2" disabled={true}>
+                {index === "_" ? "_" : bankLetters[index]}
               </button>
             ))}
 
-            {inputs.in5.map((index) => bankLetters[index])}
             <button
               className={`m-2 ${
                 inputs.in5.length === 0 ? "" : "hover:text-red-300/100"
