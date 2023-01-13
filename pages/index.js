@@ -173,11 +173,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="font-mono">
         <h1 className="flex text-2xl ">Daily Word Jumble Game</h1>
 
         <p className="text-xl">
-          {month}/{day}/{year} Puzzle
+          {month}/{day}/{year}
         </p>
 
         <div className="flex flex-col text-2xl items-center">
@@ -213,6 +213,7 @@ export default function Home() {
             solved={checked["word" + 4]}
           />
 
+          <br />
           <div className="mt-6">{data.Caption.v1}</div>
           <div className="m-2">
             {inputs.in5.map((index, i) => (

@@ -4,10 +4,10 @@ function Clue({ clue, input, inputChars, removeChars, solved }) {
       <div className="clue-container">
         {clue.split("").map((char, i) => (
           <button
-            className={`m-2 ${
+            className={`m-2.5 w-6 rounded-md outline outline-offset-4 outline-white/50 ${
               input.includes(i) === true
-                ? "line-through"
-                : "hover:text-green-300/100"
+                ? "text-white/50 line-through"
+                : "hover:outline-green-300/50 hover:text-green-300/100"
             }`}
             disabled={input.includes(i)}
             onClick={() => {
@@ -27,12 +27,12 @@ function Clue({ clue, input, inputChars, removeChars, solved }) {
         ))}
         <button
           className={`m-2 ${
-            input.length === 0 ? "" : "hover:text-red-300/100"
+            solved ? "text-white/50" : "hover:text-red-300/100"
           }`}
           onClick={() => {
             removeChars();
           }}
-          disabled={input.length === 0 ? true : false || solved}
+          disabled={solved}
         >
           x
         </button>
