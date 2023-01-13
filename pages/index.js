@@ -174,9 +174,9 @@ export default function Home() {
       </Head>
 
       <main className="font-mono">
-        <h1 className="flex text-2xl ">Daily Word Jumble Game</h1>
+        <h1 className="ml-2 mt-2 flex text-2xl ">Daily Word Jumble Game</h1>
 
-        <p className="text-xl">
+        <p className="ml-2 text-xl">
           {month}/{day}/{year}
         </p>
 
@@ -255,6 +255,15 @@ export default function Home() {
                 {char}
               </button>
             ))}
+          </div>
+          <br />
+          <div>
+            <Image
+              src={data.Image}
+              alt="daily jumble caption comic"
+              width={500}
+              height={500}
+            />
           </div>
         </div>
       </main>
