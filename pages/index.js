@@ -100,6 +100,8 @@ export default function Home() {
       .map((index) => data.Clues["c" + inputNum][index])
       .join("");
 
+    console.log("input check for: " + solKey, bankKey, inString);
+
     if (
       inString === data.Clues[solKey] &&
       checked["word" + inputNum] === false
@@ -109,7 +111,7 @@ export default function Home() {
         .map((x) => x - 1)
         .filter((item) => item !== undefined);
 
-      for (let num in bankIndices) {
+      for (let num of bankIndices) {
         setBankLetters((bankLetters) => [
           ...bankLetters,
           inString[bankIndices[num]],
@@ -163,7 +165,7 @@ export default function Home() {
     checkInput(2);
     checkInput(3);
     checkInput(4);
-  }, [inputs.in1, inputs.in2, inputs.in3, inputs.in4]);
+  }, [inputs]);
 
   console.log(inputs);
   console.log(checked);
