@@ -1,4 +1,4 @@
-Minimalist implementation of the Seattle Times Word Jumble game - [original game here](https://www.seattletimes.com/games-universal/?amu=/iwin-jumble). 
+Minimalist implementation of The Seattle Times Daily Jumble - [original game here](https://www.seattletimes.com/games-universal/?amu=/iwin-jumble). 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
