@@ -138,6 +138,8 @@ export default function Home() {
           spaceArr.push(" ");
         } else if (char === " " || char === "}") {
           continue;
+          // } else if (char === '"' || char === `'`) {
+          //   spaceArr.push(char);
         } else {
           spaceArr.push("_");
         }
@@ -166,15 +168,14 @@ export default function Home() {
   }, [inputs]);
 
   return (
-    <div>
+    <div className="bg-stone-200 dark:bg-sky-900 font-mono min-w-fit min-h-screen">
       <Head>
         <title>Word Jumble</title>
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className="font-mono">
-        <h1 className="ml-2 mt-2 flex text-2xl ">Daily Word Jumble Game</h1>
+      <main className="text-stone-800 dark:text-stone-200">
+        <h1 className="ml-2 flex text-2xl ">Daily Word Jumble Game</h1>
 
         <p className="ml-2 text-xl">
           {month}/{day}/{year}
@@ -224,7 +225,9 @@ export default function Home() {
 
             <button
               className={`m-2 ${
-                inputs.in5.length === 0 ? "" : "hover:text-red-300/100"
+                inputs.in5.length === 0
+                  ? "text-stone-800/50 dark:text-stone-200/50"
+                  : "hover:text-red-300/100"
               }`}
               onClick={() => {
                 removeChars(5);
@@ -242,10 +245,10 @@ export default function Home() {
             {bankLetters.map((char, i) => (
               <button
                 key={char + i}
-                className={`m-2.5 w-6 rounded-md outline outline-offset-4 outline-white/50 ${
+                className={`m-2.5 w-6 rounded-md outline outline-offset-4 outline-stone-800/50 dark:text-stone-200 dark:outline-stone-200/50 ${
                   inputs.in5.includes(i) === true
-                    ? "text-white/50 line-through"
-                    : "hover:outline-green-300/50 hover:text-green-300/100"
+                    ? "text-stone-800/50 dark:text-stone-200/50 line-through"
+                    : "hover:outline-cyan-600/50 hover:text-cyan-600 dark:hover:outline-green-300/50 dark:hover:text-emerald-300/100"
                 }`}
                 disabled={inputs.in5.includes(i)}
                 onClick={() => {
@@ -267,8 +270,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      <footer></footer>
     </div>
   );
 }
