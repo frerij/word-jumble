@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Clue from "../components/Clue";
+import PopUp from "../components/PopUp";
 
 export default function Home() {
   const date = new Date();
@@ -138,8 +139,8 @@ export default function Home() {
           spaceArr.push(" ");
         } else if (char === " " || char === "}") {
           continue;
-          // } else if (char === '"' || char === `'`) {
-          //   spaceArr.push(char);
+        } else if (char === '"' || char === `'` || char === "-") {
+          spaceArr.push(char);
         } else {
           spaceArr.push("_");
         }
@@ -175,11 +176,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="text-stone-800 dark:text-stone-200">
-        <h1 className="ml-2 flex text-2xl ">Daily Word Jumble Game</h1>
+        <h1 className="ml-2 flex text-2xl ">Daily Word Jumble</h1>
 
         <p className="ml-2 text-xl">
           {month}/{day}/{year}
         </p>
+
+        <PopUp />
 
         <div className="flex flex-col text-2xl items-center">
           <Clue
