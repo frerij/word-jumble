@@ -42,6 +42,7 @@ export default function Home() {
     word2: false,
     word3: false,
     word4: false,
+    caption: false,
   });
   const [captionSpaces, setCaptionSpaces] = useState([]);
 
@@ -54,7 +55,13 @@ export default function Home() {
       const response = await fetch(url);
       const fetchedData = await response.json();
       setData(fetchedData);
-      setChecked({ word1: false, word2: false, word3: false, word4: false });
+      setChecked({
+        word1: false,
+        word2: false,
+        word3: false,
+        word4: false,
+        caption: false,
+      });
       setBankLetters([]);
     } catch (e) {
       console.error("error", e);
@@ -151,6 +158,21 @@ export default function Home() {
     setInputs(newInputs);
   }
 
+  function checkCaption(caption) {
+    let condensedCaption = "";
+    for (let index of caption) {
+      if (Number.isInteger(index)) {
+        condensedCaption += bankLetters[index];
+      } else {
+        continue;
+      }
+    }
+    if (condensedCaption === data.Solution.k1) {
+      setChecked({ ...checked, caption: true });
+    }
+    console.log(checked);
+  }
+
   useEffect(() => {
     getData();
   }, []);
@@ -166,6 +188,7 @@ export default function Home() {
     checkInput(2);
     checkInput(3);
     checkInput(4);
+    checkCaption(inputs.in5);
   }, [inputs]);
 
   return (
@@ -228,7 +251,7 @@ export default function Home() {
 
             <button
               className={`m-2 ${
-                inputs.in5.length === 0
+                inputs.in5.length === 0 || checked["caption"]
                   ? "text-stone-800/50 dark:text-stone-200/50"
                   : "hover:text-red-300/100"
               }`}
@@ -236,9 +259,7 @@ export default function Home() {
                 removeChars(5);
               }}
               disabled={
-                inputs.in5.length === 0
-                  ? true
-                  : false || checked["word" + 5] === true
+                inputs.in5.length === 0 ? true : false || checked["caption"]
               }
             >
               x
