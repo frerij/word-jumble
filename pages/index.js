@@ -170,7 +170,6 @@ export default function Home() {
     if (condensedCaption === data.Solution.k1) {
       setChecked({ ...checked, caption: true });
     }
-    console.log(checked);
   }
 
   useEffect(() => {
