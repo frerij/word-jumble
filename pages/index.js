@@ -10,7 +10,8 @@ export default function Home() {
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
-  const dateString = year + "-" + month + "-" + day;
+  const dateString = year + "-" + month + "-" + 29;
+
   const [data, setData] = useState({
     Clues: {
       c1: "",
@@ -37,6 +38,7 @@ export default function Home() {
     in5: [],
   });
   const [bankLetters, setBankLetters] = useState([]);
+  // change to just i
   const [checked, setChecked] = useState({
     word1: false,
     word2: false,
@@ -45,10 +47,15 @@ export default function Home() {
     caption: false,
   });
   const [captionSpaces, setCaptionSpaces] = useState([]);
+  const [clueArray, setClueArray] = useState([]);
+
+  // past date url tmjms not tmjmf
 
   async function getData() {
     try {
-      let url = `https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX1+b5Y+X7zaEFHSWJrCGS0ZTfgh8ArjtJXrQId7t4Y1oVKwUDKd4WyEo%0A/g/tmjmf/d/${dateString}/data.json`;
+      // let url = `https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX1+b5Y+X7zaEFHSWJrCGS0ZTfgh8ArjtJXrQId7t4Y1oVKwUDKd4WyEo%0A/g/tmjmf/d/${dateString}/data.json`;
+      let url = `https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX1+b5Y+X7zaEFHSWJrCGS0ZTfgh8ArjtJXrQId7t4Y1oVKwUDKd4WyEo%0A/g/tmjms/d/${dateString}/data.json`;
+
       if (date.getDay() === 0) {
         url = `https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX1+b5Y+X7zaEFHSWJrCGS0ZTfgh8ArjtJXrQId7t4Y1oVKwUDKd4WyEo%0A/g/tmjms/d/${dateString}/data.json`;
       }
@@ -66,6 +73,33 @@ export default function Home() {
     } catch (e) {
       console.error("error", e);
     }
+  }
+
+  function makeClueArray() {
+    let tempClueArray = [];
+
+    if (data.Clues.c5) {
+      setClueArray(
+        (tempClueArray = [
+          { c1: data.Clues.c1, a1: data.Clues.a1, o1: data.Clues.o1 },
+          { c2: data.Clues.c2, a2: data.Clues.a2, o2: data.Clues.o2 },
+          { c3: data.Clues.c3, a3: data.Clues.a3, o3: data.Clues.o3 },
+          { c4: data.Clues.c4, a4: data.Clues.a4, o4: data.Clues.o4 },
+          { c5: data.Clues.c5, a5: data.Clues.a5, o5: data.Clues.o5 },
+          { c6: data.Clues.c6, a6: data.Clues.a6, o6: data.Clues.o6 },
+        ])
+      );
+    } else {
+      setClueArray(
+        (tempClueArray = [
+          { c1: data.Clues.c1, a1: data.Clues.a1, o1: data.Clues.o1 },
+          { c2: data.Clues.c2, a2: data.Clues.a2, o2: data.Clues.o2 },
+          { c3: data.Clues.c3, a3: data.Clues.a3, o3: data.Clues.o3 },
+          { c4: data.Clues.c4, a4: data.Clues.a4, o4: data.Clues.o4 },
+        ])
+      );
+    }
+    console.log(clueArray);
   }
 
   function makeClues() {
