@@ -10,7 +10,7 @@ export default function Home() {
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
-  const dateString = year + "-" + month + "-" + 29;
+  const dateString = year + "-" + 1 + "-" + 29;
 
   const [data, setData] = useState({
     Clues: {
@@ -36,6 +36,8 @@ export default function Home() {
     in3: [],
     in4: [],
     in5: [],
+    in6: [],
+    in7: [],
   });
   const [bankLetters, setBankLetters] = useState([]);
   // change to just i
@@ -44,6 +46,8 @@ export default function Home() {
     word2: false,
     word3: false,
     word4: false,
+    word5: false,
+    word6: false,
     caption: false,
   });
   const [captionSpaces, setCaptionSpaces] = useState([]);
@@ -76,30 +80,63 @@ export default function Home() {
   }
 
   function makeClueArray() {
-    let tempClueArray = [];
-
     if (data.Clues.c5) {
-      setClueArray(
-        (tempClueArray = [
-          { c1: data.Clues.c1, a1: data.Clues.a1, o1: data.Clues.o1 },
-          { c2: data.Clues.c2, a2: data.Clues.a2, o2: data.Clues.o2 },
-          { c3: data.Clues.c3, a3: data.Clues.a3, o3: data.Clues.o3 },
-          { c4: data.Clues.c4, a4: data.Clues.a4, o4: data.Clues.o4 },
-          { c5: data.Clues.c5, a5: data.Clues.a5, o5: data.Clues.o5 },
-          { c6: data.Clues.c6, a6: data.Clues.a6, o6: data.Clues.o6 },
-        ])
-      );
+      setClueArray([
+        {
+          clue: data.Clues.c1,
+          answer: data.Clues.a1,
+          captionIndices: data.Clues.o1,
+        },
+        {
+          clue: data.Clues.c2,
+          answer: data.Clues.a2,
+          captionIndices: data.Clues.o2,
+        },
+        {
+          clue: data.Clues.c3,
+          answer: data.Clues.a3,
+          captionIndices: data.Clues.o3,
+        },
+        {
+          clue: data.Clues.c4,
+          answer: data.Clues.a4,
+          captionIndices: data.Clues.o4,
+        },
+        {
+          clue: data.Clues.c5,
+          answer: data.Clues.a5,
+          captionIndices: data.Clues.o5,
+        },
+        {
+          clue: data.Clues.c6,
+          answer: data.Clues.a6,
+          captionIndices: data.Clues.o6,
+        },
+      ]);
     } else {
-      setClueArray(
-        (tempClueArray = [
-          { c1: data.Clues.c1, a1: data.Clues.a1, o1: data.Clues.o1 },
-          { c2: data.Clues.c2, a2: data.Clues.a2, o2: data.Clues.o2 },
-          { c3: data.Clues.c3, a3: data.Clues.a3, o3: data.Clues.o3 },
-          { c4: data.Clues.c4, a4: data.Clues.a4, o4: data.Clues.o4 },
-        ])
-      );
+      setClueArray([
+        {
+          clue: data.Clues.c1,
+          answer: data.Clues.a1,
+          captionIndices: data.Clues.o1,
+        },
+        {
+          clue: data.Clues.c2,
+          answer: data.Clues.a2,
+          captionIndices: data.Clues.o2,
+        },
+        {
+          clue: data.Clues.c3,
+          answer: data.Clues.a3,
+          captionIndices: data.Clues.o3,
+        },
+        {
+          clue: data.Clues.c4,
+          answer: data.Clues.a4,
+          captionIndices: data.Clues.o4,
+        },
+      ]);
     }
-    console.log(clueArray);
   }
 
   function makeClues() {
@@ -167,10 +204,20 @@ export default function Home() {
       data.Clues.a2,
       data.Clues.a3,
       data.Clues.a4,
+      data.Clues.a5,
+      data.Clues.a6,
       data.Solution.s1,
     ];
 
-    const newInputs = { in1: [], in2: [], in3: [], in4: [], in5: [] };
+    const newInputs = {
+      in1: [],
+      in2: [],
+      in3: [],
+      in4: [],
+      in5: [],
+      in6: [],
+      in7: [],
+    };
     let count = 1;
 
     for (let ans of answers) {
@@ -211,7 +258,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    capSpaces();
+    // capSpaces();
+    makeClueArray();
   }, [data]);
 
   makeClues();
@@ -241,37 +289,19 @@ export default function Home() {
         <PopUp />
 
         <div className="flex flex-col text-2xl items-center">
-          <Clue
-            clue={data.Clues.c1}
-            input={inputs.in1}
-            inputChars={(i) => inputChars(i, 1)}
-            removeChars={() => removeChars(1)}
-            solved={checked["word" + 1]}
-          />
-          <br />
-          <Clue
-            clue={data.Clues.c2}
-            input={inputs.in2}
-            inputChars={(i) => inputChars(i, 2)}
-            removeChars={() => removeChars(2)}
-            solved={checked["word" + 2]}
-          />
-          <br />
-          <Clue
-            clue={data.Clues.c3}
-            input={inputs.in3}
-            inputChars={(i) => inputChars(i, 3)}
-            removeChars={() => removeChars(3)}
-            solved={checked["word" + 3]}
-          />
-          <br />
-          <Clue
-            clue={data.Clues.c4}
-            input={inputs.in4}
-            inputChars={(i) => inputChars(i, 4)}
-            removeChars={() => removeChars(4)}
-            solved={checked["word" + 4]}
-          />
+          {clueArray.map((clue, i) => {
+            return (
+              <Clue
+                key={"clue" + (i + 1)}
+                clue={clue.clue}
+                answer={clue.answer}
+                // input={inputs["in" + (i + 1)]}
+                // inputChars={(j) => inputChars(j, i + 1)}
+                // removeChars={() => removeChars(i + 1)}
+                // solved={checked["word" + (i + 1)]}
+              />
+            );
+          })}
 
           <br />
           <div className="mt-6">{data.Caption.v1}</div>
