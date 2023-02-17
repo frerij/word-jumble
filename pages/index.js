@@ -10,7 +10,8 @@ export default function Home() {
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
-  const dateString = year + "-" + 1 + "-" + 29;
+  // for debugging sunday puzzles: const dateString = year + "-" + 1 + "-" + 29;
+  const dateString = year + "-" + month + "-" + day;
 
   const [data, setData] = useState({
     Clues: {
@@ -57,8 +58,8 @@ export default function Home() {
 
   async function getData() {
     try {
-      // let url = `https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX1+b5Y+X7zaEFHSWJrCGS0ZTfgh8ArjtJXrQId7t4Y1oVKwUDKd4WyEo%0A/g/tmjmf/d/${dateString}/data.json`;
-      let url = `https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX1+b5Y+X7zaEFHSWJrCGS0ZTfgh8ArjtJXrQId7t4Y1oVKwUDKd4WyEo%0A/g/tmjms/d/${dateString}/data.json`;
+      // for past date debugging: let url = `https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX1+b5Y+X7zaEFHSWJrCGS0ZTfgh8ArjtJXrQId7t4Y1oVKwUDKd4WyEo%0A/g/tmjmf/d/${dateString}/data.json`;
+      let url = `https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX1+b5Y+X7zaEFHSWJrCGS0ZTfgh8ArjtJXrQId7t4Y1oVKwUDKd4WyEo%0A/g/tmjmf/d/${dateString}/data.json`;
 
       if (date.getDay() === 0) {
         url = `https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX1+b5Y+X7zaEFHSWJrCGS0ZTfgh8ArjtJXrQId7t4Y1oVKwUDKd4WyEo%0A/g/tmjms/d/${dateString}/data.json`;
@@ -67,10 +68,6 @@ export default function Home() {
       const fetchedData = await response.json();
       setData(fetchedData);
       setChecked({
-        word1: false,
-        word2: false,
-        word3: false,
-        word4: false,
         caption: false,
       });
       setBankLetters([]);
@@ -172,31 +169,31 @@ export default function Home() {
     setInputs(newInputs);
   }
 
-  function checkInput(inputNum) {
-    const solKey = "a" + inputNum;
-    const bankKey = "o" + inputNum;
-    const inString = inputs["in" + inputNum]
-      .map((index) => data.Clues["c" + inputNum][index])
-      .join("");
+  // function checkInput(inputNum) {
+  //   const solKey = "a" + inputNum;
+  //   const bankKey = "o" + inputNum;
+  //   const inString = inputs["in" + inputNum]
+  //     .map((index) => data.Clues["c" + inputNum][index])
+  //     .join("");
 
-    if (
-      inString === data.Clues[solKey] &&
-      checked["word" + inputNum] === false
-    ) {
-      const bankIndices = data.Clues[bankKey]
-        .split(",")
-        .map((x) => x - 1)
-        .filter((item) => item !== undefined);
+  //   if (
+  //     inString === data.Clues[solKey] &&
+  //     checked["word" + inputNum] === false
+  //   ) {
+  //     const bankIndices = data.Clues[bankKey]
+  //       .split(",")
+  //       .map((x) => x - 1)
+  //       .filter((item) => item !== undefined);
 
-      for (let num in bankIndices) {
-        setBankLetters((bankLetters) => [
-          ...bankLetters,
-          inString[bankIndices[num]],
-        ]);
-      }
-      setChecked({ ...checked, ["word" + inputNum]: true });
-    }
-  }
+  //     for (let num in bankIndices) {
+  //       setBankLetters((bankLetters) => [
+  //         ...bankLetters,
+  //         inString[bankIndices[num]],
+  //       ]);
+  //     }
+  //     setChecked({ ...checked, ["word" + inputNum]: true });
+  //   }
+  // }
 
   function capSpaces() {
     const answers = [
@@ -257,21 +254,15 @@ export default function Home() {
     getData();
   }, []);
 
-  console.log(data);
   useEffect(() => {
-    // capSpaces();
     makeClueArray();
   }, [data]);
 
   makeClues();
 
   useEffect(() => {
-    checkInput(1);
-    checkInput(2);
-    checkInput(3);
-    checkInput(4);
     checkCaption(inputs.in5);
-  }, [inputs]);
+  }, [inputs.in5]);
 
   return (
     <div className="bg-stone-200 dark:bg-sky-900 font-mono min-w-fit min-h-screen">

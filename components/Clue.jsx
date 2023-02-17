@@ -35,7 +35,7 @@ function Clue({ clue, answer }) {
     const newInput = [...inputArray];
     let i = inputArray.indexOf("_");
     if (i === -1) {
-      i = input.length - 1;
+      i = inputArray.length - 1;
     } else {
       i = i - 1;
     }
@@ -50,6 +50,8 @@ function Clue({ clue, answer }) {
 
     if (inputString === answer) {
       setSolved(true);
+    } else {
+      setSolved(false);
     }
   }
 
