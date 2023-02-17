@@ -257,6 +257,7 @@ export default function Home() {
     getData();
   }, []);
 
+  console.log(data);
   useEffect(() => {
     // capSpaces();
     makeClueArray();
