@@ -51,10 +51,9 @@ export default function Home() {
     word6: false,
     caption: false,
   });
+  const [solved, setSolved] = useState({});
   const [captionSpaces, setCaptionSpaces] = useState([]);
   const [clueArray, setClueArray] = useState([]);
-
-  // past date url tmjms not tmjmf
 
   async function getData() {
     try {
@@ -169,32 +168,6 @@ export default function Home() {
     setInputs(newInputs);
   }
 
-  // function checkInput(inputNum) {
-  //   const solKey = "a" + inputNum;
-  //   const bankKey = "o" + inputNum;
-  //   const inString = inputs["in" + inputNum]
-  //     .map((index) => data.Clues["c" + inputNum][index])
-  //     .join("");
-
-  //   if (
-  //     inString === data.Clues[solKey] &&
-  //     checked["word" + inputNum] === false
-  //   ) {
-  //     const bankIndices = data.Clues[bankKey]
-  //       .split(",")
-  //       .map((x) => x - 1)
-  //       .filter((item) => item !== undefined);
-
-  //     for (let num in bankIndices) {
-  //       setBankLetters((bankLetters) => [
-  //         ...bankLetters,
-  //         inString[bankIndices[num]],
-  //       ]);
-  //     }
-  //     setChecked({ ...checked, ["word" + inputNum]: true });
-  //   }
-  // }
-
   function capSpaces() {
     const answers = [
       data.Clues.a1,
@@ -287,10 +260,9 @@ export default function Home() {
                 key={"clue" + (i + 1)}
                 clue={clue.clue}
                 answer={clue.answer}
-                // input={inputs["in" + (i + 1)]}
-                // inputChars={(j) => inputChars(j, i + 1)}
-                // removeChars={() => removeChars(i + 1)}
-                // solved={checked["word" + (i + 1)]}
+                onComplete={() => {
+                  setSolved({ ...solved, [i]: true });
+                }}
               />
             );
           })}

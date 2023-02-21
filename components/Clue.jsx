@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Clue({ clue, answer }) {
+function Clue({ onComplete, clue, answer }) {
   const [input, setInput] = useState([]);
   const [solved, setSolved] = useState(false);
   const [inputArray, setInputArray] = useState([]);
@@ -50,6 +50,7 @@ function Clue({ clue, answer }) {
 
     if (inputString === answer) {
       setSolved(true);
+      onComplete();
     } else {
       setSolved(false);
     }
