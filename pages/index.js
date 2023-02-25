@@ -270,7 +270,9 @@ export default function Home() {
             {inputs.in7.map((index, i) => (
               <button
                 key={i}
-                className={`m-2 ${checked["caption"] ? "text-green-300" : ""}`}
+                className={`m-2 ${
+                  checked["caption"] ? "text-green-500 dark:text-green-300" : ""
+                }`}
                 disabled={true}
               >
                 {index === "_" ? "_" : bankLetters[index]}
