@@ -157,10 +157,15 @@ export default function Home() {
     const key = "in" + inputNum;
     const newInputs = { ...inputs };
     let i = inputs[key].indexOf("_");
+    console.log(inputs[key][i]);
+
     if (i === -1) {
       i = inputs[key].length - 1;
     } else {
       i = i - 1;
+    }
+    if (inputs[key][i] === " ") {
+      i -= 1;
     }
 
     newInputs[key][i] = "_";
@@ -169,23 +174,9 @@ export default function Home() {
   }
 
   function capSpaces() {
-    const answers = [
-      data.Clues.a1,
-      data.Clues.a2,
-      data.Clues.a3,
-      data.Clues.a4,
-      data.Clues.a5,
-      data.Clues.a6,
-      data.Solution.s1,
-    ];
+    const answers = [data.Solution.s1];
 
     const newInputs = {
-      in1: [],
-      in2: [],
-      in3: [],
-      in4: [],
-      in5: [],
-      in6: [],
       in7: [],
     };
     let count = 1;
@@ -203,7 +194,7 @@ export default function Home() {
           spaceArr.push("_");
         }
       }
-      newInputs["in" + count] = spaceArr;
+      newInputs["in" + "7"] = spaceArr;
       count += 1;
     }
     setInputs(newInputs);
@@ -218,6 +209,7 @@ export default function Home() {
         continue;
       }
     }
+    console.log(condensedCaption);
     if (condensedCaption === data.Solution.k1) {
       setChecked({ ...checked, caption: true });
     }
@@ -229,13 +221,16 @@ export default function Home() {
 
   useEffect(() => {
     makeClueArray();
+    capSpaces();
   }, [data]);
 
   makeClues();
-
+  console.log(inputs.in7);
   useEffect(() => {
-    checkCaption(inputs.in5);
-  }, [inputs.in5]);
+    checkCaption(inputs.in7);
+  }, [inputs]);
+
+  console.log(bankLetters);
 
   return (
     <div className="bg-stone-200 dark:bg-sky-900 font-mono min-w-fit min-h-screen">
@@ -260,8 +255,10 @@ export default function Home() {
                 key={"clue" + (i + 1)}
                 clue={clue.clue}
                 answer={clue.answer}
-                onComplete={() => {
+                captionIndices={clue.captionIndices}
+                onComplete={(letters) => {
                   setSolved({ ...solved, [i]: true });
+                  setBankLetters([...bankLetters, ...letters]);
                 }}
               />
             );
@@ -270,7 +267,7 @@ export default function Home() {
           <br />
           <div className="mt-6">{data.Caption.v1}</div>
           <div className="m-2">
-            {inputs.in5.map((index, i) => (
+            {inputs.in7.map((index, i) => (
               <button key={i} className="m-2" disabled={true}>
                 {index === "_" ? "_" : bankLetters[index]}
               </button>
@@ -278,15 +275,15 @@ export default function Home() {
 
             <button
               className={`m-2 ${
-                inputs.in5.length === 0 || checked["caption"]
+                inputs.in7.length === 0 || checked["caption"]
                   ? "text-stone-800/50 dark:text-stone-200/50"
                   : "hover:text-red-300/100"
               }`}
               onClick={() => {
-                removeChars(5);
+                removeChars(7);
               }}
               disabled={
-                inputs.in5.length === 0 ? true : false || checked["caption"]
+                inputs.in7.length === 0 ? true : false || checked["caption"]
               }
             >
               x
@@ -297,13 +294,13 @@ export default function Home() {
               <button
                 key={char + i}
                 className={`m-2.5 w-6 rounded-md outline outline-offset-4 outline-stone-800/50 dark:text-stone-200 dark:outline-stone-200/50 ${
-                  inputs.in5.includes(i) === true
+                  inputs.in7.includes(i) === true
                     ? "text-stone-800/50 dark:text-stone-200/50 line-through"
                     : "hover:outline-cyan-600/50 hover:text-cyan-600 dark:hover:outline-green-300/50 dark:hover:text-emerald-300/100"
                 }`}
-                disabled={inputs.in5.includes(i)}
+                disabled={inputs.in7.includes(i)}
                 onClick={() => {
-                  inputChars(i, 5);
+                  inputChars(i, 7);
                 }}
               >
                 {char}

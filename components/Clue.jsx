@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 
-function Clue({ onComplete, clue, answer }) {
+function Clue({ onComplete, clue, answer, captionIndices }) {
   const [input, setInput] = useState([]);
   const [solved, setSolved] = useState(false);
   const [inputArray, setInputArray] = useState([]);
+
+  let letters = captionIndices.split(",").map((i) => answer[i - 1]);
 
   function makeinputArray() {
     let tempInputArr = [];
@@ -50,7 +52,7 @@ function Clue({ onComplete, clue, answer }) {
 
     if (inputString === answer) {
       setSolved(true);
-      onComplete();
+      onComplete(letters);
     } else {
       setSolved(false);
     }
