@@ -268,7 +268,11 @@ export default function Home() {
           <div className="mt-6">{data.Caption.v1}</div>
           <div className="m-2">
             {inputs.in7.map((index, i) => (
-              <button key={i} className="m-2" disabled={true}>
+              <button
+                key={i}
+                className={`m-2 ${checked["caption"] ? "text-green-300" : ""}`}
+                disabled={true}
+              >
                 {index === "_" ? "_" : bankLetters[index]}
               </button>
             ))}
@@ -278,7 +282,7 @@ export default function Home() {
                 inputs.in7.length === 0 || checked["caption"]
                   ? "text-stone-800/50 dark:text-stone-200/50"
                   : "hover:text-red-300/100"
-              }`}
+              } `}
               onClick={() => {
                 removeChars(7);
               }}
