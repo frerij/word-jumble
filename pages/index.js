@@ -194,10 +194,12 @@ export default function Home() {
           spaceArr.push("_");
         }
       }
+      console.log(spaceArr);
       newInputs["in" + "7"] = spaceArr;
       count += 1;
     }
     setInputs(newInputs);
+    console.log(inputs);
   }
 
   function checkCaption(caption) {
@@ -225,7 +227,7 @@ export default function Home() {
   }, [data]);
 
   makeClues();
-  console.log(inputs.in7);
+
   useEffect(() => {
     checkCaption(inputs.in7);
   }, [inputs]);

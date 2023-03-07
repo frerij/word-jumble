@@ -74,7 +74,7 @@ function Clue({ onComplete, clue, answer, captionIndices }) {
             className={`m-2.5 w-6 rounded-md outline outline-offset-4 outline-stone-800/50 dark:text-stone-200 dark:outline-stone-200/50 ${
               inputArray.includes(i) === true
                 ? "text-stone-800/50 dark:text-stone-200/50 line-through"
-                : "hover:outline-cyan-600/50 hover:text-cyan-600 dark:hover:outline-green-300/50 dark:hover:text-emerald-300/100"
+                : "hover:outline-cyan-600/50 hover:text-cyan-600 dark:hover:outline-emerald-300 dark:hover:text-emerald-300/100"
             }`}
             disabled={inputArray.includes(i)}
             onClick={() => {
