@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Clue from "../components/Clue";
 import PopUp from "../components/PopUp";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function Home() {
   const date = new Date();
@@ -241,6 +242,7 @@ export default function Home() {
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Analytics />
       <main className="text-stone-800 dark:text-stone-200">
         <h1 className="ml-2 flex text-2xl ">Daily Word Jumble</h1>
 
